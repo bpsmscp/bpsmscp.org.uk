@@ -1,0 +1,7 @@
+
+    <strong>tags:</strong>
+    {{ range $index, $tag := .Params.tags }}
+    {{- if gt $index 0 }}, {{ end -}}
+    <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}">{{ $tag }}</a>
+    {{- end -}}
+

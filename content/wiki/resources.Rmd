@@ -1,0 +1,149 @@
+---
+title: "Online resources for maths, stats, and computing"
+author: "Mark Andrews"
+slug: "resources"
+date: 2019-01-11
+tags: ["resources", "maths", "statistics", "computing", "programming"]
+stub: false
+description: |
+  The set of online resources for doing maths, statistics and computing is vast. 
+  This list does not even aim to be comprehensive, and just aims to provide 
+  a relatively small set of key resources that everyone should know about.
+  This "relatively small set" could still get rather large.
+---
+
+## Discussion forums, Question & Answer sites
+
+The [Stack Exchange](https://stats.stackexchange.com) set 
+of Question & Answers sites have many sites related to maths, stats, and computing.
+Here are three (but there are [many more](https://stackexchange.com/sites) too):
+
+[Stack Overflow](https://stackoverflow.com/)
+
+:   The original of the [Stack Exchange](https://stats.stackexchange.com) sites and 
+    for "professional and enthusiast programmers" asking 
+    questions about "a specific programming problem, or a software algorithm, 
+    or software tools commonly used by programmers".     
+   
+
+[Cross validated](https://stats.stackexchange.com/)
+
+:   For "people interested in statistics, machine learning, data analysis, data mining, and data visualization".s
+
+
+[Mathematics](https://math.stackexchange.com/)
+
+:  "For people studying math at any level and professionals in related fields".
+    This site is large and not restricted to professional mathematicians 
+    (for professional mathematicians doing research in mathematics there is 
+    [mathoverflow](https://mathoverflow.net/)).
+
+
+Two great statistics and data analysis related [discourse.org](https://www.discourse.org/) sites are:
+
+[discourse.datamethods.org](https://discourse.datamethods.org/)
+
+:   A forum "where statisticians, epidemiologists, informaticists, machine learning practitioners, and other research
+    methodologists ... discuss issues related to ... research methods, quantitative methods, study design, measurement,
+    statistical analysis, interpretation of data and statistical results, ...".
+    It has a focus on applied statistics in the health and medical sciences.
+
+[discourse.mc-stan.org](https://discourse.mc-stan.org/)
+
+:   This is a forum "to discuss [Stan](https://mc-stan.org/) and Bayesian modeling". Probably, 
+    the best place for discussions related to Bayesian data analysis.
+
+## Online courses & MOOC
+
+[edX](https://www.edx.org/) and [Coursera](https://www.coursera.org/)
+
+:   With [edX](https://www.edx.org/) having around 2000 online courses, and [Coursera](https://www.coursera.org/)
+    having around 2500 online, it is not possible to even begin to list all the relevant courses 
+    so we'll just list some categories:
+
+    * [edX statistics courses](https://www.edx.org/learn/statistics)
+    * [edX probabilisty courses](https://www.edx.org/learn/probability)
+    * [Coursera probability and statistics courses](https://www.coursera.org/browse/data-science/probability-and-statistics)
+
+[Udemy](http://udemy.com/)
+
+:   [Udemy](http://udemy.com/) charges a fee (often very reasonably priced) for each of their over 100,000 courses. Again, 
+    there are so many that we can not even begin to list the relevant ones, but again here are some categories:
+    
+    * [Udemy data science courses](https://www.udemy.com/topic/data-science/)
+    * [Udemy maths courses](https://www.udemy.com/topic/math/)
+    * [Udemy programming courses (in Python, Javascript, etc)](https://www.udemy.com/courses/development/)
+    * [Udemy computer science courses](https://www.udemy.com/topic/computer-science/)
+
+
+[Khan academy](https://www.khanacademy.org/)
+
+:   Courses at the [Khan academy](https://www.khanacademy.org/), 
+    all of which are freely available, are often aimed at high school level 
+    (albeit advanced high school level) topics, 
+    and many have a maths and science focus. If you are feeling a bit rusty about your general maths skills,
+    the [math(s)](https://www.khanacademy.org/math/) videos on the [Khan academy](https://www.khanacademy.org/)
+    are probably the very best to start.
+
+[Datacamp](https://www.datacamp.com/)   
+
+:   High quality online courses with video lectures and interactive exercises on all things related to data science. There are hundreds of courses. Here are just some categories:
+
+    * [Data science with Python](https://www.datacamp.com/tracks/data-scientist-with-python)
+    * [Data science with R](https://www.datacamp.com/tracks/data-scientist-with-r)
+    * [Data visualization](https://www.datacamp.com/tracks/data-visualization-with-r)
+    
+While, for individuals, it is necessary to pay a monthly fee to access all datacamp courses, 
+*"DataCamp is 100% free when you need it for your classroom. Even our premium content"*. If you teach statistics, you may enrol your entire set of students, and they may access all content for free. See [here](https://www.datacamp.com/groups/education) for details.
+    
+## Online encyclopedia 
+
+[Wikipedia](https://en.wikipedia.org)
+
+:   It may seem too obvious to even mention, but [Wikipedia](https://en.wikipedia.org) is 
+    and excellent resources for statistics, particularly mathematical statistics and
+    probability theory, and mathematics generally, and computing. 
+
+[Mathworld](mathworld.wolfram.com)
+
+:   This began as personal on-line wiki by [Eric Weisstein](https://en.wikipedia.org/wiki/Eric_W._Weisstein) 
+    and has grown to around 14,000 high quality pages all about maths. 
+
+
+## Social media
+
+
+[Twitter](https://twitter.com/)
+
+:   Many academics, statistician, data scientists, and so on, are on Twitter 
+    and many of them use it primarily to disseminate professional related information. Using something
+    like [tweetdeck](https://tweetdeck.twitter.com/), instead of following people,
+    you can also follow multiple hashtags simultaneously. To get started, 
+    just following these three hashtags, for example, will yield a lot of useful information:
+    
+    * #rstats 
+    * #Python 
+    * #datascience
+    
+[YouTube](https://www.youtube.com)
+
+:   [YouTube](https://www.youtube.com) has 
+    enormous quantities of useful videos on maths, stats and computing. To get started, here are some channels to consider:
+    
+    * [Numberphile](https://www.youtube.com/user/numberphile) About maths and numbers
+    * [Khan academy](https://www.youtube.com/khanacademy) See above.
+    * [3Blue1Brown](https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw) On maths generally, and with impressive animations. 
+    * [Two minute papers](https://www.youtube.com/channel/UCbfYPyITQ-7l4upoX8nvctg) A lot of videos about AI and machine learning
+    * [Ben Lambert](https://www.youtube.com/user/SpartacanUsuals) Bayesian methods and econometrics
+    * [Ox educ](https://www.youtube.com/channel/UCkQXyTRPtdbZKcggIozIpyw) On maths and statistics
+    
+    
+## Blogs
+
+There are a vast number of good blogs out there, again too numerous to list. 
+For blogs related to R, fortunately, 
+we have the [r-bloggers](https://www.r-bloggers.com/) aggregator to aggregate relevant blogs for us.
+Either visit [r-bloggers](https://www.r-bloggers.com/), or subscribe to the email list, or [follow](https://twitter.com/Rbloggers)
+it on Twitter.
+
+On further stats/data-analysis blog to mention is that of [Andrew Gelman](https://statmodeling.stat.columbia.edu/), which is very popular, especially  with respect to Bayesian data analysis.

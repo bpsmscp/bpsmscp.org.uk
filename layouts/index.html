@@ -1,0 +1,42 @@
+{{ define "main" }}
+<main id="home">
+    <div>
+        <div class="avatar">
+            <img src="https://www.gravatar.com/avatar/{{ md5 .Site.Params.gravatar.email }}?s=240&d=mp" alt="gravatar">
+        </div>
+        <div id="content">
+            {{ .Content }}
+            {{ .Render "social-links" }}
+        </div>
+    </div>
+
+    <div id="recent-posts">
+        <h2>Recent blog posts</h2>
+        <ul>
+            {{ range first 5 .Data.Pages.ByPublishDate.Reverse }}
+                {{ if eq .Type "post"}}
+                <li>
+                    <span> {{ .Date.Format "01/02/2006" }} </span>
+                    <a href="{{ .URL }}">{{ .Title }}</a>
+                </li>
+                {{ end }}
+            {{ end }}
+        </ul>
+        
+        <h2>Recent wiki pages</h2>
+        <ul>
+            {{ range first 5 .Data.Pages.ByPublishDate.Reverse }}
+                {{ if eq .Type "wiki"}}
+                <li>
+                    <span> {{ .Date.Format "01/02/2006" }} </span>
+                    <a href="{{ .URL }}">{{ .Title }}</a>{{ if .Params.stub }} (stub){{ end }}
+                </li>
+                {{ end }}
+            {{ end }}
+        </ul>
+        
+        
+    </div>
+    
+</main>
+{{ end }}

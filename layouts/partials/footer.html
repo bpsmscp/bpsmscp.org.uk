@@ -1,0 +1,13 @@
+<footer>
+    <p class="footer-text">
+      &copy; <time datetime="{{ now }}">{{ now.Format "2006" }}</time> {{ .Site.Author.fullname }}.
+      <br>
+       Unless otherwise stated, all textual content on this site is distributed according to 
+       <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/legalcode">CC BY-SA 4.0</a>,
+       and all code is distributed according to
+       <a rel="license" href="http://www.gnu.org/licenses/gpl.html">GNU General Public License (v3)</a>.
+    </p>
+</footer>
+
+{{ partial "footer_highlightjs" . }}
+{{ partial "footer_mathjax" . }}

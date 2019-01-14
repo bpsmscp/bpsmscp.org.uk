@@ -1,0 +1,421 @@
+:root {
+    --primary-color: #1976d2;
+    --primary-color-dark: #778899;
+    --primary-color-light: #63a4ff;
+    --grey: #bdbdbd;
+    --grey-dark: #8d8d8d;
+    --grey-light: #efefef;
+    --break-point-large: 992px;
+    --break-point-medium: 768px;
+    --break-point-small: 576px;
+
+    --pastel-dark-blue: #779ECB;
+    --pastel-darker-blue: #425871;
+    --pastel-brown: #836953;
+    --pastel-blue: #AEC6CF;
+    --pastel-gray: #CFCFC4;
+    --cadet-gray: #91A3B0;
+    --timberwolf: #DBD7D2;
+    --spanish-gray: #989898;
+    --light-light-gray: #F5F5F5;
+    --bloodred: #BE0000;
+    --dim-gray: #696969;
+    --primary: yellow;
+    --dark: #000;
+    --light: #fff;
+
+}
+
+blockquote {
+    background: var(--grey-light);
+    border-left: .5rem solid var(--grey-dark);
+    padding: .5rem 1rem;
+}
+
+@media (max-width: 576px) {
+    blockquote {
+        margin: 16px;
+    }
+}
+
+header,
+footer,
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+}
+
+@media only screen and (min-width: 900px) {
+	#single {
+	  margin-left: auto;
+	  margin-right: auto;
+	  max-width: 60%;
+	}
+}
+
+
+header {
+    margin-bottom: 16px;
+    margin-top: 8px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 64px;
+    margin-bottom: 16px;
+}
+
+
+.breadcrumb {
+    background-color: var(--primary-color-dark);
+    line-height: 2;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.breadcrumb a {
+    background-color: var(--primary-color-dark);
+    color: #fff;
+    margin-right: 16px;
+}
+
+.breadcrumb a:hover,
+a:focus {
+ color: var(--light-light-gray);
+}
+
+/*
+a {
+    color: var(--grey-dark);
+    text-decoration: none;
+    opacity: 1;
+}
+
+a:focus,
+a:hover {
+    transition: opacity .15s ease-in;
+}
+
+a:focus,
+a:hover {
+    opacity: .5;
+}
+
+a:active {
+    opacity: .8;
+    transition:opacity .15s ease-out;
+}
+*/
+
+a {
+ text-decoration: none;
+ color: var(--pastel-darker-blue);
+}
+
+a:hover,
+a:focus {
+ color:var(--bloodred);
+}
+
+
+ul {
+    list-style-type: none;
+}
+
+#home {
+    line-height: 1.5;
+}
+
+@media (max-width: 576px) {
+    #home h2 {
+        text-align: center;
+    }
+}
+
+.avatar {
+    margin: 32px auto 0;
+    width: 160px;
+}
+
+.avatar > img {
+    border-radius: 50%;
+    width: 100%;
+}
+
+@media (max-width: 576px) {
+    .avatar {
+        width: 50%;
+    }
+}
+
+#content > h2,
+#content > p {
+    text-align: center;
+}
+
+.social-media-links {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.social-media {
+    margin-right: 16px;
+}
+
+.social-media img {
+    width: 32px;
+}
+
+#content,
+#recent-posts {
+    margin: 32px auto;
+    width: 72%;
+}
+
+@media (max-width: 576px) {
+    #content,
+    #recent-posts {
+        width: 88%;
+    }
+}
+
+#recent-posts > h2 {
+    font-weight: normal;
+    text-align: left;
+    padding-top: 12px;
+    font-style: italic;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    font-size: 1.25rem;
+}
+
+#recent-posts > ul,
+#list > ul {
+    padding: 0;
+}
+
+#recent-posts > ul > li {
+    margin-bottom: 4px;
+}
+
+@media (max-width: 576px) {
+    #recent-posts > ul > li {
+        margin-bottom: 8px;
+    }
+}
+
+#recent-posts > ul > li > span,
+#list > ul > li > p {
+    color: var(--grey);
+    font-family: Consolas, monaco, monospace;
+    margin-right: 8px;
+    font-weight: normal;
+}
+
+#content,
+#tagged-posts {
+    margin: 32px auto;
+    width:100% 
+}
+
+@media (max-width: 576px) {
+    #content,
+    #tagged-posts {
+        width: 88%;
+    }
+}
+
+#tagged-posts > h2 {
+    font-weight: normal;
+    text-align: left;
+    padding-top: 12px;
+    font-style: italic;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    font-size: 1.25rem;
+}
+
+#tagged-posts > ul,
+#list > ul {
+    padding: 0;
+}
+
+#tagged-posts > ul > li {
+    margin-bottom: 4px;
+}
+
+@media (max-width: 576px) {
+    #tagged-posts > ul > li {
+        margin-bottom: 8px;
+    }
+}
+
+#tagged-posts > ul > li > span,
+#list > ul > li > p {
+    color: var(--grey);
+    font-family: Consolas, monaco, monospace;
+    margin-right: 8px;
+    font-weight: normal;
+}
+
+.footer-text {
+    font-size: .6rem;
+}
+
+#list {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 64%;
+}
+
+@media (max-width: 576px) {
+    #list {
+        max-width: 88%;
+    }
+}
+
+#listings > h1 {
+    font-weight: normal;
+    text-align: left;
+    font-size: 1.4em;
+    font-style: italic;
+    padding-top: 12px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+
+}
+
+#listings > h1 > a{
+ text-decoration: none;
+ color: black;
+}
+
+#listings > h2 {
+    font-weight: normal;
+    text-align: left;
+    font-style: italic;
+    font-size: 0.8em;
+    padding-bottom: 12px;
+}
+
+#listings > .post-summary {
+    font-weight: normal;
+    line-height: 2;
+    text-align: left;
+    font-size: 1.0em;
+    padding-bottom: 12px;
+}
+
+#tag-list ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+#list > h1 {
+    font-weight: normal;
+    text-align: left;
+    font-size: 1.8em;
+    font-style: italic;
+    padding-top: 12px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+
+}
+
+#list > #description {
+	padding-bottom: 24px;
+}
+
+#list > #description > p{
+	font-size: 0.8em;
+}
+
+#list > #tag-list > li {
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+
+#list > ul > li {
+    margin-bottom: 32px;
+    font-weight: normal;
+}
+
+#tag-list > li {
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+#single > h1 {
+    font-weight: normal;
+    font-style: italic;
+    text-align: left;
+    font-size: 1.6em;
+    padding-top: 12px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+#single > h2 {
+    font-weight: normal;
+    text-align: left;
+    font-style: italic;
+    font-size: 0.8em;
+    padding-bottom: 24px;
+}
+
+.post-content {
+    line-height: 2;
+    padding: 0px;
+}
+
+.post-content h1 {
+    font-weight: normal;
+    font-style: italic;
+    text-align: left;
+    font-size: 1.4em;
+}
+
+.post-content h2 {
+    font-weight: normal;
+    text-align: left;
+    font-style: italic;
+    font-size: 1.2em;
+}
+
+.post-content h3 {
+    font-weight: normal;
+    text-align: left;
+    font-style: italic;
+    font-size: 1.0em;
+}
+
+
+@media (max-width: 576px) {
+    .post-content {
+    	padding: 0px;
+    }
+}
+
+.post-content > p code {
+    background-color: var(--grey-light);
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+
+.post-content ul {
+    list-style-type: disc;
+}
+
+/* Override syntax highlighting styles */
+
+.hljs {
+    border-radius: .25rem;
+    padding: 1rem;
+}
+
+
+

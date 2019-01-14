@@ -1,0 +1,207 @@
+---
+title: "Logarithms"
+slug: "logarithms"
+author: "Mark Andrews"
+date: 2019-01-08
+tags: ["logarithms", "exponents", "maths", "stats", "R"]
+stub: false
+description: |
+  An introduction to logarithms, as well as exponentiation, which is the inverse of a logarithmic function, and their algebraic properties, 
+  and how to calculate them using R.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE,
+                      echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+library(ggplot2)
+library(magrittr)
+library(tibble)
+library(cowplot)
+library(latex2exp)
+
+```
+
+
+Logarithms arise often in statistics. 
+For example, 
+they arise in various formulae related to logistic regression 
+and other kinds of generalized linear models. 
+Logarithmic transformations are often applied to skewed data 
+in order to make them more symmetrical. And logarithms are
+widely used when calculating and manipulating probabilities and likelihoods.
+
+To understand logarithms, we can start with the usually more familiar concept of exponentiation.
+Exponentiation is when we raise a certain number to the power of another number, 
+and it is essentially repeated multiplication. 
+For example, $2^3$ is $2$ multiplied by itself $3$ times, which is $2 \times 2 \times 2 = 8$, and
+$2^5 = 2 \times 2 \times 2 \times 2 \times 2 = 32$, and so on. 
+Here, we say that $2$ is the base and $3$ is the *power* or *index* or *exponent* to which the base is raised.
+
+
+If we understand exponents, then we understand logarithms because logarithms are the inverse of exponents. 
+Logarithms tell us the exponent or index to which we must raise a particular base to get a given number.
+For example, the logarithm to base $2$ of $32$ tells us the exponent or index to which we must raise $2$ in order to get $32$.
+In other words, this logarithm, which we write $\log_2(32)$, 
+tells us the value of $x$ in the equation $2^x = 32$. 
+Because, $2^3 = 2 \times 2 \times 2 = 8$,
+$\log_2(8) = 3$, and because $2^5 = 2 \times 2 \times 2 \times 2 \times 2 = 32$,
+$\log_2(32) = 5$, and so on.
+In general, 
+if some number $b$ raised to the power of $x$ gives us $y$, 
+then the logarithm to base $b$ of $y$ is $x$.
+In other words,
+$$
+\text{if }y = b^x 
+\text{ then }
+x = \log_{b}(y),
+$$
+and vice versa. From this, we see that logarithms and exponentiation are inverses of one another. 
+
+In Figure \@ref(fig:fig1)a, we show an exponential function with base $b=2$ over a range of integers from $0$ to $8$. 
+In Figure \@ref(fig:fig1)b, we show the logarithm to base $b=2$ of the range of values that were produced by the exponential function. 
+As can be seen, the logarithmic function is exactly the inverse function of the exponential function.
+
+```{r}
+fig_1_caption <- 'Exponential and logarithmic functions. a) A plot of the function $y = 2^x$ over the integers from 0 to 8. b) A plot of the logarithm to base $2$ of the $y$ values from the exponential function.
+'
+```
+
+
+```{r fig1, fig.cap=fig_1_caption, fig.align='center', fig.asp = .5}
+
+
+Df <- tibble(x = seq(0, 8),
+             y = 2^x)
+
+p1 <- Df %>% ggplot(aes(x = x, y = y)) + geom_point() + geom_line() + ylab(TeX('$y = 2^x$'))  
+p2 <- Df %>% ggplot(aes(x = y, y = log(y, base=2))) + geom_point() + geom_line() + ylab(TeX('$x = \\log_2(y)$'))  
+
+plot_grid(p1, p2, labels=c('a', 'b'), rel_widths = c(2, 2))
+
+```
+
+As we've seen above, any logarithm is always defined relative to a specified base $b$. 
+These bases can be any positive (real) number not equal to 1. 
+This means the $b$ can not be negative, or equal to 0, or equal to 1. 
+The base can not be equal to $1$ because of the definition of logarithms being, as we saw above, 
+the solution for $x$ of the equation $y = b^x$. 
+If the base were $b=1$, then the logarithm would be 
+the solution for $x$ of $y = 1^x$, and this not exist because $1$ raised to the power of any number always gives $1$.
+Likewise, if the base were $b=0$, then we'd be solving for $x$ in the equation $y = 0^x$, 
+and this also has no solution because $0$ raised to the power of any number will also give 0. 
+If $b$ were a negative value, the logarithm would lead to complex numbers, and as such are not permitted.
+
+Even though the base $b$ can in fact be any positive real number not equal to 1, certain bases
+are used more routinely than others. In particular, base $10$, base $2$, and base $e \approx 2.718282$ are widely used. 
+Base $10$ is commonly used because we count in the decimal number system. Base $2$ is commonly used in computer science and information theory because of the underlying code used in almost all computers. Base $e$, on other hand, is used largely for its many convenient mathematical properties. The number $e$, sometimes known as *Euler's* (pronounced *oiler's*) number, is an irrational number (meaning that it has an infinite non-repeating decimal expansion), 
+and crops up in mathematics routinely like other (also irrational) numbers like $\pi \approx 3.141593$ or $\sqrt{2} \approx 1.414214$. Logarithms to base $e$ are known as *natural logarithms* (what's so *natural* about natural logarithms? see 
+[here](https://math.stackexchange.com/questions/797/whats-so-natural-about-the-base-of-natural-logarithms)), and they are
+often the default base for logarithms (see below). 
+Moreover, 
+in most application of logarithms to statistics, 
+such as those mentioned above, logarithms to base $e$ are used. 
+
+The domain of logarithms, i.e., the values for which logarithms can be calculated, are the positive (real) numbers. 
+We can not calculate logarithms for negative numbers because there is no solution for $x$ of the equation $y = b^x$ when $y$ is negative. 
+Likewise, there is no solution for $x$ of $y = b^x$ when $y$ is zero.
+
+## Algebraic properties of logarithms
+
+Logarithms have some useful algebraic properties, 
+and in fact this is one of the reason why logarithms are widely used. These rules apply regardless of base, so we can drop any explicit reference to the base in the notation.
+One very important property is
+$$
+\log(y\cdot z) = \log(y) + \log(z) \quad\text{the log of a product is the sum of logs}.
+$$
+This can be extended indefinitely. For example, 
+$$
+\log(u \cdot v \cdot w \cdot \ldots \cdot y \cdot z) = \log(u) + \log(v) + \log(w) \ldots + \ldots \log(y) + \log(z),
+$$
+or more generally
+$$
+\log\left( \prod_{i=1}^{n} y_i \right) = \sum_{i=1}^n \log(y_i).
+$$
+
+This means we can calculate products of very large or very small number easily. 
+For example, if we have a set of $n$ relatively large numbers, say 100 numbers each of which is on the order of around 1 million, and we were to calculate their product on a computer, this would lead to a number on the order of $10^{600}$ which is astronomically large, and too large to even represented ordinarily on a computer. 
+However, we could calculate the logarithm of this product by simply summing the logs of the 100 numbers, and this would lead to a number $\approx 600$ (assuming we use base 10). 
+
+A direct consequence of the above rule, given that exponents are repeated multiplication, is 
+$$
+\log(y^n) = n \log(y).
+$$
+If we put those two rules together we get 
+$$
+\log(\tfrac{y}{z}) = \log(y) - \log(z) \quad\text{the log of a ratio is the difference of logs}.
+$$
+To see why, remember that $\tfrac{y}{z} = y \cdot \tfrac{1}{z}$ and $\tfrac{1}{z} = z^{-1}$, and so
+$$
+\log(\tfrac{y}{z}) = \log(y \cdot z^{-1}) = \log(y) + \log(z^{-1}) = \log(y) - \log(z)
+$$
+
+These rules can also show us how to change the base of a logarithm. Let's say you have the logarithm to base $2$ of a certain number but wanted wanted to know its logarithm to base $10$. 
+If the logarithm to base $2$ was $x$, 
+obviously, we could do $\log_{10}(2^x)$, 
+but sometimes this is not be computationally feasible (because $2^x$ might be too large to ordinarily represent on a computer) or might not be convenient. Using one of the above rules, we see that
+$$
+\log_{10}(2^x) = x \log_{10}(2),
+$$
+and in general, if $x$ is the logarithm to base $a$ and you want its logarithm to base $b$, do
+$$
+x \log_{b}(a),
+$$
+which will always give you $\log_b(a^x)$.
+
+All of these logarithm rules are themselves just a consequence of the rules of exponents, such as 
+$$
+\begin{aligned}
+b^n \cdot b^m &= b^{(n + m)},\\
+\tfrac{b^n}{b^m} &= b^{(n - m)},\\
+(b\cdot c)^n &= b^n \cdot c^n,\\
+(b^n)^m &= b^{(n \cdot m)},\\
+b^{-n} &= \tfrac{1}{b^n}.
+\end{aligned}
+$$
+
+## Calculating logarithms using R
+
+Calculating logarithms using R is easy. For example, to calculate logarithms to base 2, we would use `log2`:
+```{r, echo=T}
+x <- c(1.25, 2.75, 15.1, 27, 51)
+log2(x) # logarithm to base 2
+```
+To calculate logarithms to base 10, we use `log10`:
+```{r, echo=T}
+log10(x) # logarithm to base 10
+```
+To calculate logarithms to base $e$, we use `log`:
+```{r, echo=T}
+log(x) # logarithm to base e
+```
+In fact, we can use `log` for calculating logarithms to *any* permissible base, it just that with `log` base $e$ is the default. 
+So, for example, here is the logarithm to base $1.2345$
+```{r, echo=T}
+log(x, base=1.2345) # logarithm to base 1.2345
+```
+
+Exponents in R are usually obtained by the `^` operator. For example,
+```{r, echo=T}
+c(2^3, 3^3, 10^2)
+```
+To obtain $e^x$, however, we use the `exp` function. For example, $e^{10}$ is calculated by
+```{r, echo=T}
+exp(10)
+```
+And we could always obtain the value of $e$ itself, by
+```{r, echo=T}
+exp(1)
+```
+Or, to see more digits of $e$, you can do
+```{r, echo=T}
+format(exp(1), digits = 22)
+```
+
+
+

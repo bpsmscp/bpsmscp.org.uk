@@ -1,0 +1,21 @@
+{{ define "main" }}
+<main id="list">
+    <h1>{{ .Title }}</h1>
+    
+    <div id='description'>
+      <p> {{ .Content }} </p>
+    </div>
+
+    <div id='listings'>
+        {{ range .Data.Pages }}
+           <h1><a href="{{ .RelPermalink }}">{{ .Title }}</a></h1>
+           <h2 class="subtitle">{{ .Params.author }}. {{ .Date.Format "January 2, 2006" }}</h2>
+           <section class="post-summary">
+                 {{ .Description }}<span><a href="{{ .RelPermalink }}">[more]</a></span>
+           </section>
+
+        {{ end }}
+    </div>
+
+</main>
+{{ end }}

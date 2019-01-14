@@ -1,0 +1,13 @@
+{{ define "main" }}
+<main id="single">
+    <h1>{{ .Title }}{{ if .Params.stub }} (stub){{ end }}</h1>
+    <h2 class="subtitle">{{ .Params.author }}. {{ .Date.Format "January 2, 2006" }}</h2>
+    
+    <section class="post-content">
+        {{ .Content }}
+    </section>
+    
+    {{ partial "tagline" . }}
+    
+</main>
+{{ end }}

@@ -1,0 +1,7 @@
+.Rhistory
+.Rproj.user
+static/wiki/
+static/post/
+public
+resources
+content/*/*.html

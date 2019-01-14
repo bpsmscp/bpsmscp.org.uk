@@ -1,0 +1,84 @@
+baseURL = "http://www.bpsmscp.org.uk/"
+languageCode = "en-us"
+title = "bpsmscp"
+googleAnalytics = "UA-131927983-1"
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
+[author]
+    fullName = "Mathematical, Statistical, Computing Psychology section of the British Psychological Society"
+    name = 'BPS MSCP'
+
+[permalinks]
+  post = "/posts/:slug/"
+
+# We'll just go with tags for now
+[taxonomies]
+  tag = "tags"
+  
+[menu]
+
+  [[menu.main]]
+    identifier = "home"
+    name = "home"
+    url = "/"
+    weight = 1
+
+  [[menu.main]]
+    identifier = "blog"
+    name = "blog"
+    url = "/post"
+    weight = 2
+    
+  [[menu.main]]
+    identifier = "wiki"
+    name = "wiki"
+    url = "/wiki"
+    weight = 3
+  
+#  [[menu.main]]
+#    identifier = "events"
+#    name = "events"
+#    url = "/events"
+#    weight = 4
+    
+  [[menu.main]]
+    identifier = "about"
+    name = "about"
+    url = "/about"
+    weight = 5
+    
+
+      
+
+[params]
+
+  # options for highlight.js (version, additional languages, and theme)
+  highlightjsVersion = "9.12.0"
+  highlightjsCDN = "//cdnjs.cloudflare.com/ajax/libs"
+  highlightjsLang = ["r", "yaml"]
+  highlightjsTheme = "github"
+
+  # options for MathJax, which take care of LaTeX'ed maths 
+  MathJaxCDN = "//cdnjs.cloudflare.com/ajax/libs"
+  MathJaxVersion = "2.7.5"   
+  
+  [params.gravatar]
+    email = "bps.mscp@gmail.com"
+ 
+  [[params.social]]
+    icon = "github"
+    url = "https://github.com/bpsmscp"
+    weight = 1
+
+  [[params.social]]
+    icon = "twitter"
+    url = "https://twitter.com/bpsmscp"
+    weight = 2
+    
+  [[params.social]]
+    icon = "mail"
+    url = "mailto:bps.mscp@gmail.com"
+    weight = 3
+    
+  
+     

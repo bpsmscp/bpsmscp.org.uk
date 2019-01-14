@@ -1,0 +1,147 @@
+---
+title: "Welcome to the BPS Maths, Stats, and Computing Psychology section"
+author: "Mark Andrews"
+date: '2019-01-13'
+slug: welcome
+tags:
+- bps-mscp-section
+description: |
+   A welcome blog post where we outline what we understand the aims of the MSCP
+   section to be, and how we plan or hope to achieve these aims.
+---
+
+The Mathematical, Statistical, and Computing Psychology (MSCP) 
+section of the British Psychological Society (BPS) is one of the 
+BPS's 15 [member sections](https://www.bps.org.uk/psychologists/member-networks#sections).
+It's overarching aim is to promote *"the advancement and diffusion of the use of mathematics, statistics and computing in psychology"*.
+Here, I want outline how we understand this overarching aim, and how we currently hope to pursue it.
+
+## What do we mean by the *M*, the *S*, and the *C* in *MSCP*?
+
+Starting with the *S*, the *statistical psychology* part of the section's name
+refers to the use of statistical methods in teaching and research in
+psychology.  Statistics are extensively used in all areas of psychological
+research. To get a sense of how much of psychological research involves
+statistical data analysis, according to the methodological classifications of
+the approximately 2 million journal articles (with such classifications) that are
+currently under record by
+[PsycINFO](https://www.apa.org/pubs/databases/psycinfo/index.aspx), about 1.25
+million have their methodology classified as "quantitative studies", while
+about 160,000 are classified as "qualitative studies". That, of course, is a
+crude measure, but nonetheless gives us a sense of the prevalence of statistics
+in psychological research. 
+
+It probably goes without saying that according to this MSCP section what counts
+as *statistical data analysis* is interpreted broadly and is certainly not
+limited to a small traditional set of topics. It includes the full range of
+theoretical and practical topics considered by the academic field of statistics
+in general, as well as statistical data analysis as practiced in other
+scientific fields. It also includes all of those activities that are now
+collectively termed *data science*. These include data wrangling, data
+visualization, exploratory data analysis, dealing with large and unstructured
+data sets, data mining, big data analysis, machine learning, high performance
+and computational statistics, and so on.
+
+Turning to the *M*, *mathematical psychology* has at least two senses.  First,
+it refers to the sub-field of psychology known as mathematical psychology whose
+purview is the development of mathematical models of, usually, human cognition
+or behaviour. This is not an esoteric methodology in psychology.
+For example, using the
+[PsycINFO](https://www.apa.org/pubs/databases/psycinfo/index.aspx) records
+mentioned previously, about 100,000 journal articles have their methodology
+classified as "mathematical model". To put this number in perspective, contrast
+it with the approximately 50,000 articles methodologically classified as
+*brain imaging*, approximately 60,000 classified as *clinical case
+studies*, or approximately 21,000 classified as clinical trials, and so. 
+
+The MSCP section also aims to promote the "advancement and diffusion" of
+mathematics because of its foundational role in quantitative and statistical data
+analysis generally.  In other words, in order to promote the advancement and
+diffusion of statistical, we must recognize the foundational role of
+mathematics and to ensure that general mathematical knowledge in psychology is
+not marginalized or treated as unnecessary.
+
+Finally, turning to the *C*, *computing psychology* has multiple senses.
+Obviously, all of these senses relate in some way to the use of computers as
+research tools in psychology. One broad and important sense of the term
+*computing* refers to computer programming. This can and ought to include
+programming of any kind, but will by necessity be more likely to include the
+programming languages that are specialized for, or have found a home in,
+mathematical, statistical, scientific research. These include 
+[R](https://www.r-project.org/),
+[Python](https://www.python.org/),
+[Julia](https://julialang.org/),
+[Matlab](https://www.mathworks.com/products/matlab.html)/[Octave](https://www.gnu.org/software/octave/),
+[Mathematica](https://www.wolfram.com/mathematica/),
+[Haskell](https://www.haskell.org/),
+[C/C++](https://gcc.gnu.org/),
+[Fortran](https://gcc.gnu.org/fortran/) 
+and others. In Psychology,
+R and Python seem to be being increasingly widely adopted, as they are in data
+science generally. Continuous with programming languages per se are specialized
+toolboxes that require may less general programming skills, though do often
+involve programming some kind. These would include, for example, the
+[SPM](https://www.fil.ion.ucl.ac.uk/spm/) Matlab toolbox for fMRI, PET,
+EEG, or MEG analyses, or the Python based [PsychoPy](http://www.psychopy.org/)
+for doing experiments in neuroscience and psychology.
+
+Computing in psychology also includes the computational modelling of, say,
+human cognition, and this is found in sub-fields like *neural network
+modelling*, *computational cognitive science* or, a most recent and intriguing
+arrival, [*computational
+psychiatry*](https://www.technologyreview.com/s/608322/the-emerging-science-of-computational-psychiatry).
+Computational modelling may be seen as continuous with, or possibly even
+identical to, mathematical modelling mentioned above, but often also involves
+high performance computing and large scale simulations.
+
+Finally, computing in psychology also includes [human computer interaction
+(HCI)](https://en.wikipedia.org/wiki/Human%E2%80%93computer_interaction), which
+is generally a multidisciplinary field with contributions from computer
+science, psychology, design, media studies, and
+[others](https://en.wikipedia.org/wiki/Outline_of_human%E2%80%93computer_interaction#Related_fields).
+
+## How will we spread the word?
+
+Having established what we understand as our relevant topics, how do we hope to
+fulfill our role of promoting their "advancement and diffusion"? Currently, we have
+three approaches:
+
+* *Workshops*: Starting this year, we hope to frequently provide training
+  workshops to our members. As of today (January 13, 2019), we're still
+  considering our options for this 2019, but the hope is to provide workshops
+  every few months, and hopefully up to 3-4 times this year, for this to be the
+  pattern we follow. Depending on circumstances, these workshops could be
+  half-day events, but hopefully also we will hold multi-day events that allow
+  us to go deeper into the topics. We intend for these workshop to be free for
+  all members (and *anyone* can become a member for between £10-£22, see
+  [here](about)), and they'll be held in different locations in the UK. What
+  topics we cover in the long run will hopefully be many and varied, but for
+  now, ideas that we are seriously considering are *Introduction to R*,
+  *Introduction to Python*, *Data visualization*, *Bayesian data analysis*,
+  *Multilevel modelling*.
+
+* *Conferences & symposia*: Each year, and starting this year, we hope to hold
+  either a conference or a symposium, which may possibly occur in conjunction
+  with a conference of another BPS section, such as the cognitive or
+  developmental psychology section. Currently, we are planning to hold a
+  conference later this year. This is still in the planning phase, but there
+  are some things we quite sure about. We're quite sure that the conference
+  will be in December, and in [Nottingham Trent
+  University](https://www.ntu.ac.uk/), and that it will be a one day event, but
+  hopefully preceded by a one or two days of workshops, and that it will be a
+  regular academic conference, in that presentations will be open to anyone
+  interested and there will be a regular formal submissions process.
+
+* *This website*: This website is obviously brand new and with barely any
+  content, but we have high hopes. In particular, our hope is that it will,
+  over time, fill with resources on maths, stats, and computing in psychology,
+  both for research and teaching. We're not being naïve about this undertaking,
+  because we know it will require sustained and consistent effort over a long
+  period, and from many contributors. Given that all these potential
+  contributors will be acting purely in a voluntary capacity and out of spirit
+  of collegiality and generosity, and have countless and more serious demands
+  on their time, we are under no illusions these resources will emerge
+  effortlessly and automatically. Nonetheless, our plan is to create a
+  [community wiki](wiki), which is essentially just a collection of notes and
+  *how-tos* on anything and everything to do with maths, stats, and computing
+  topics that are relevant to the community.

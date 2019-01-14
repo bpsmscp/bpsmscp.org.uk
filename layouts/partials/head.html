@@ -1,0 +1,12 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ with .Page.Title }}{{ . }} - {{ end }}{{ .Site.Title }}</title>
+    <base href="{{ .Site.BaseURL }}">
+    {{ $style := resources.Get "css/style.css" }}
+    {{ $css := slice $style | resources.Concat "css/main.css" | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $css.Permalink }}">
+    <link rel="shortcut icon" type="image/png" href="img/academic.png"/>
+    {{ partial "head_highlightjs" . }}
+    {{ template "_internal/google_analytics.html" . }}
+</head>

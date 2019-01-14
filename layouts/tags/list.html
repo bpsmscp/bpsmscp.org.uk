@@ -1,0 +1,58 @@
+{{ define "main" }}
+<main id="list">
+    <h1>Tag: {{ .Title }}</h1>
+   
+<!-- this monstrosity is to deal with Go/HoGo's limitations with scoping -->
+{{ $.Scratch.Set "has_post" "no" }}
+{{ $.Scratch.Set "has_wiki" "no" }}
+{{ range .Data.Pages}}
+  
+  {{ if eq .Type "post"}} 
+    {{ $.Scratch.Set "has_post" "yes" }}
+  {{ end }}
+  
+  {{ if eq .Type "wiki"}} 
+    {{ $.Scratch.Set "has_wiki" "yes" }}
+  {{ end }}
+  
+{{ end }}
+
+{{ $has_wiki := $.Scratch.Get "has_wiki"}} 
+{{ $has_post := $.Scratch.Get "has_post"}} 
+
+      <div id="tagged-posts">
+        
+        {{ if eq $has_post "yes"}}
+        <h2>Blog posts  </h2>
+        <ul>
+            {{ range .Data.Pages.ByPublishDate.Reverse }}
+                {{ if eq .Type "post"}}
+                <li>
+                    <span> {{ .Date.Format "01/02/2006" }} </span>
+                    <a href="{{ .URL }}">{{ .Title }}</a>
+                </li>
+                {{ end }}
+            {{ end }}
+        </ul>
+        {{ end }}   
+        
+    
+        {{ if eq $has_wiki "yes"}}
+        <h2>Wiki pages</h2>
+        <ul>
+            {{ range .Data.Pages.ByPublishDate.Reverse }}
+                {{ if eq .Type "wiki"}}
+                <li>
+                    <span> {{ .Date.Format "01/02/2006" }} </span>
+                    <a href="{{ .URL }}">{{ .Title }}</a>
+                </li>
+                {{ end }}
+            {{ end }}
+        </ul>
+        {{ end }}
+        
+        
+    </div>
+      
+</main>
+{{ end }}
