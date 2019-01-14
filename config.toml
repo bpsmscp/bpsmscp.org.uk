@@ -1,4 +1,4 @@
-baseURL = "http://www.bpsmscp.org.uk/"
+baseURL = "/"
 languageCode = "en-us"
 title = "bpsmscp"
 googleAnalytics = "UA-131927983-1"
