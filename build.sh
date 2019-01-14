@@ -8,7 +8,8 @@ if [ "$1" == "--not-safe" ]; then
 	# being currently tracked by Git.
 
 	echo "Deleting everything that is not tracked by Git"
-	git clean -fdX
+	git clean -fdX # remove (only?) ignored files
+	git clean -fd  # remove everything else (I think)
 
 fi
 
