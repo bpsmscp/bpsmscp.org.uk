@@ -21,8 +21,8 @@ is currently hosted, and no cost (thank you) by
 
 ## Website content
 
-The site primarily consists of two parts: the [blog](blog) and the
-[wiki](wiki).  The [blog](blog) is a regular blog where we'll post news or
+The site primarily consists of two parts: the [blog](post) and the
+[wiki](wiki).  The [blog](post) is a regular blog where we'll post news or
 announcements related to the section, as well as more or less anything else
 that we think is relevant or interesting and related to the topic of maths,
 stats, or computing in psychology.  The [wiki](wiki), on the other hand, is
@@ -33,7 +33,7 @@ various maths, stats, and computing topics
 
 All the source content, including this page, is written in *.Rmd* files, which
 are under [Git](https://git-scm.com/) version control. The Git repository
-publicly hosted on [GitHub](https://github.com/). Included in the repository
+publicly hosted on [GitHub](https://github.com/bpsmscp/bpsmscp.org.uk). Included in the repository
 are all the [Hugo](https://gohugo.io/) templates and css style files. The
 current theme of the site is based on my hacking of the [Hugo
 Bingo](https://themes.gohugo.io/hugo-bingo/) theme by [Bing-Sheng
@@ -50,7 +50,7 @@ At the moment, I appreciate that that might seem like a bizarre
 concept to many people, and thus quite off-putting, but I hope that in time its
 intrinsic elegance will be seen and it will be appreciated that there just is no
 better way than this. More details on how to do this will be provided (eventually)
-on the [GitHub repository wiki page](https://github.com/).
+on the [GitHub repository wiki page](https://github.com/bpsmscp/bpsmscp.org.uk/wiki).
 
 ## A minimal viable product
 
