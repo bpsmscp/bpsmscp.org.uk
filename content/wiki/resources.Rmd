@@ -104,7 +104,7 @@ While, for individuals, it is necessary to pay a monthly fee to access all datac
     and excellent resources for statistics, particularly mathematical statistics and
     probability theory, and mathematics generally, and computing. 
 
-[Mathworld](mathworld.wolfram.com)
+[Mathworld](http://mathworld.wolfram.com/)
 
 :   This began as personal on-line wiki by [Eric Weisstein](https://en.wikipedia.org/wiki/Eric_W._Weisstein) 
     and has grown to around 14,000 high quality pages all about maths. 
