@@ -57,7 +57,7 @@ example of how to do this.
 For this example, the page we will work with is [List of English districts by population](https://en.wikipedia.org/wiki/List_of_English_districts_by_population), 
 and in particular the [page version](https://en.wikipedia.org/w/index.php?title=List_of_English_districts_by_population&oldid=879013307) as of 28 January 2019 10:38 UTC. Here's a screenshot of that page where we see the main table:
 ```{r, out.width = "800px", echo=F, fig.align='center'}
-#knitr::include_graphics("img/english_districts_wikipage_screenshot.png")
+knitr::include_graphics("img/english_districts_wikipage_screenshot.png")
 ```
 
 We'll need some R packages for web scraping, namely [`httr`](https://cran.r-project.org/web/packages/httr) and [`XML`](https://cran.r-project.org/web/packages/XML/). 
@@ -205,7 +205,7 @@ is missing is many cases. In other cases, the value listed, e.g. "City (2012)",
 does not signify one the five type just mentioned. In some other cases, 
 it has two pieces of information that are separated by a comma.
 The first is English district type, provides us with other information, such as 
-whether the district officially has a [UK City status](City status in the United Kingdom).
+whether the district officially has a [UK City status](https://en.wikipedia.org/wiki/City_status_in_the_United_Kingdom).
 Because of this overall inconsistency, we will drop the variable. However, it
 is possible to recover this information from joining this table with other tables of English districts
 such as from what is available on the [List of English districts by area](https://en.wikipedia.org/wiki/List_of_English_districts_by_area) Wikipedia page. 
