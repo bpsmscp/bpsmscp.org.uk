@@ -418,4 +418,103 @@ ul {
 }
 
 
+/* Copied from 
+ * https://raw.githubusercontent.com/css-ui/table/master/css/style.tables.css
+ */
 
+
+/* table
+   ========================================================================== */
+table {
+    border-collapse: collapse;
+}
+
+table td,
+table th {
+    font-weight: 600;
+    padding: 4px 7px;
+}
+
+table td {
+    color: #575757;
+}
+
+table th:first-child,
+table td:first-child {
+    padding-left: 8px;
+}
+
+/* default
+   ========================================================================== */
+table tr.default th {
+    border: 0;
+}
+
+table tr.default td {
+    border: 0;
+}
+
+table tr.default:nth-child(even) {
+    background: #f2f2f2;
+}
+
+table tr.default:nth-child(odd)  {
+    background: #fff;
+}
+
+/* primary
+   ========================================================================== */
+table tr.primary th {
+    border: 0;
+}
+
+table tr.primary td {
+    border: 0;
+    color: #27667b;
+}
+
+table tr.primary:nth-child(even) td {
+    background: #c1edfb;
+}
+
+table tr.primary:nth-child(odd) td  {
+    background: #fff;
+}
+
+/* success
+   ========================================================================== */
+table tr.success th {
+    border: none;
+}
+
+table tr.success td {
+    border: 0;
+    color: #277b35;
+}
+
+table tr.success:nth-child(even) td {
+    background: #bdf3c4;
+}
+
+table tr.success:nth-child(odd) td  {
+    background: #fff;
+}
+
+/* warning
+   ========================================================================== */
+table tr.warning th {
+    border: 0;
+}
+
+table tr.warning td {
+    border: 0;
+    color: #7b2727;
+}
+
+table tr.warning:nth-child(even) td {
+    background: #f5b9b9;
+}
+
+table tr.warning:nth-child(odd) td  {
+    background: #fff;
+}

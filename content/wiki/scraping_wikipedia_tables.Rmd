@@ -1,0 +1,301 @@
+---
+title: "Web scraping Wikipedia data tables into R data frames"
+author: "Mark Andrews"
+date: '2019-01-28'
+slug: scraping_wikipedia
+stub: no
+tags:
+- web_scraping
+- R
+description: Wikipedia provides a lot of very useful tables of data. The data, however,
+  are in the form of html tables, rather than some easy to import format like csv.
+  To get this table into, for example, an R data frame requires some web scraping
+  followed by data wrangling.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE,
+                      echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+
+# We'll use these to style the tables, but we'll keep 
+# it quiet.
+library(knitr)
+library(kableExtra)
+
+stylish_Df <- function(Df){
+  Df %>% 
+  kable() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
+                font_size = 10,
+                full_width = TRUE)
+}
+
+
+```
+
+[Wikipedia](https://en.wikipedia.org/) 
+provides us with very large numbers of data tables. For example, here are
+just five of the presumably tens, or maybe hundreds, of thousands of Wikipedia pages with data tables:
+
+* [List of countries by GDP (nominal)](https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal))
+* [List of highest-grossing Indian films](https://en.wikipedia.org/wiki/List_of_highest-grossing_Indian_films)
+* [List of tallest buildings and structures](https://en.wikipedia.org/wiki/List_of_tallest_buildings_and_structures)
+* [List of countries by intentional homicide rate](https://en.wikipedia.org/wiki/List_of_countries_by_intentional_homicide_rate)
+* [List of countries and dependencies by area](https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_area)
+
+All of these tables, perhaps with some exceptions, provide a detailed reference to the original sources of the data and, by virtue of being on a Wikipedia page, are free to use according to 
+the [Creative Commons BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) licence.
+However, if we want to use data analysis using R on data in these tables, 
+we must first do some web scraping
+to extract the data from the html tables 
+and then use `dplyr` and friends to clean them up
+and convert them into a form that is easy to work with. Here, we provide a worked 
+example of how to do this. 
+
+For this example, the page we will work with is [List of English districts by population](https://en.wikipedia.org/wiki/List_of_English_districts_by_population), 
+and in particular the [page version](https://en.wikipedia.org/w/index.php?title=List_of_English_districts_by_population&oldid=879013307) as of 28 January 2019 10:38 UTC. Here's a screenshot of that page where we see the main table:
+```{r, out.width = "800px", echo=F, fig.align='center'}
+#knitr::include_graphics("img/english_districts_wikipage_screenshot.png")
+```
+
+We'll need some R packages for web scraping, namely [`httr`](https://cran.r-project.org/web/packages/httr) and [`XML`](https://cran.r-project.org/web/packages/XML/). 
+We'll then need [`dplyr`](https://cran.r-project.org/web/packages/dplyr/)
+for re-formatting and cleaning the data. We'll use [`magrittr`](https://cran.r-project.org/web/packages/magrittr/)
+for some processing pipelines. We'll use [`stringr`](https://cran.r-project.org/web/packages/stringr/)
+for some renaming. We'll use [`ggplot2`]() at the end for some
+visualizations.
+
+```{r}
+library(httr)
+library(XML)
+library(dplyr)
+library(magrittr)
+library(stringr)
+library(ggplot2)
+```
+
+## Web scraping the table
+
+The web scraping is relatively painless. 
+We read in the webpage in its entirety using a combination of the `GET` and `content` functions from  [`httr`](https://cran.r-project.org/web/packages/httr), and the extract out the table(s) as data frames using `readHTMLTable` from
+[`XML`](https://cran.r-project.org/web/packages/XML/). On this page, there's actually just one html table, and
+we convert that to a [tibble](https://r4ds.had.co.nz/tibbles.html), although that final step is not strictly necessary.
+
+```{r}
+webpage_url <- 'https://en.wikipedia.org/w/index.php?title=List_of_English_districts_by_population&oldid=879013307'
+
+webpage_tables <- 
+  GET(webpage_url) %>%   # Use the http GET verb to retrieve page 
+  content("text") %>%    # Extract the text content from the page
+  readHTMLTable()        # Read the table(s) from page
+
+Df <- webpage_tables$`NULL` %>%   # There's only one table, named `NULL`
+  as_tibble()
+
+```
+
+
+## Data wrangling 
+
+Having read in the data into a data-frame, we now must 
+do a series of typical `dplyr` data wrangling steps. 
+
+First, let's take a look at the first 10 rows of the not-so-pretty `Df` that we've obtained:
+```{r, echo=F}
+Df %>% head(10) %>% stylish_Df()
+
+```
+
+There are a few things that need to be fixed:
+
+* The column names are the generic `V1`, `V2` etc., and the first row is actually the list of proper column names, and these variables could be renamed too.
+* The original table's sub-headers like `More than 1,000,000 inhabitants`, `More than 500,000 inhabitants`, etc., need to be removed.
+* All the variables are read in as `factors`. They need to be converted to other types.
+* Some variables can be dropped to make a cleaner data frame.
+
+To deal with the first issue, we'll extract out the values on the first row, 
+then delete that first row, and then rename the columns using
+those first row values:
+```{r}
+# Get the values on 1st row. These are what the column need should be.
+column_names <- Df %>% slice(1) %>% unlist() %>% as.character()
+
+Df %<>% 
+  slice(-1) %>%             # Delete row 1
+  rename_all(~column_names) # Rename all columns 
+  
+```
+
+(See [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html) 
+for why we need the `~` in the `rename_all` function.)
+
+While we are at this, because I prefer lower case 
+names with no spaces as columns, I'll create a function
+using `stringr` to do that and apply it using `rename_all`:
+```{r}
+tolower_no_spaces <- function(s){
+  s %>% 
+    str_to_lower() %>% 
+    str_replace_all(' ', '_')
+}
+
+Df %<>% rename_all(tolower_no_spaces)  
+  
+```
+
+
+Now, let's take a look again at the first 10 rows:
+```{r, echo=F}
+Df %>% head(10) %>% stylish_Df()
+```
+
+
+To deal with the second issue, it turns out that all and only all of the rows 
+corresponding to the original sub-headers have `NA` values in all columns after the first: 
+```{r, eval=F}
+Df %>% filter(rowSums(is.na(.[,2:6])) == 5)
+```
+
+```{r, echo=F}
+Df %>% filter(rowSums(is.na(.[,2:6])) == 5) %>% stylish_Df()
+```
+
+That gives us an easy rule with which to filter them out:
+```{r}
+Df %<>% filter(!rowSums(is.na(.[,2:6])) == 5)
+```
+
+We can also verify that the number of rows that we now have is the correct number, namely 326 (which is the current number of official [districts](https://en.wikipedia.org/wiki/Districts_of_England) that are in England).
+```{r}
+nrow(Df)
+```
+
+
+Now, let's take a look again at the first 10 rows:
+```{r, echo=F}
+Df %>% head(10) %>% stylish_Df
+```
+
+Now, we'll convert the variables to different types. 
+Specifically, we'd like to convert the variables 
+`district`, `type`, `ceremonial_county`, and `english_region` 
+from `factor` to `character` variables. We also want `population` to be an 
+`integer` variable, but first we'll have to remove the
+commas in their values. Finally, we'll drop `rank` entirely 
+because it can be calculated easily from `population`.
+
+```{r}
+Df %<>% mutate_at(vars(district, type, ceremonial_county, english_region),
+                 as.character) %>% 
+  mutate(population = str_replace_all(population, ',', '') %>% as.integer()
+  ) %>% 
+  select(-rank)
+```
+
+Let's look again at the first 10 rows:
+```{r, echo=F}
+Df %>% head(10) %>% stylish_Df
+```
+
+The `type` variable is quite inconsistent. The 326 English districts are 
+in fact divided into 5 types as follows: *metropolitan boroughs* (36), *London boroughs* (32), *non-metropolitan districts* (201), *unitary authorities* (55), and two *sui generis* districts, namely the City of London and the Isles of Scilly. In our `Df`, the type variable 
+is missing is many cases. In other cases, the value listed, e.g. "City (2012)", 
+does not signify one the five type just mentioned. In some other cases, 
+it has two pieces of information that are separated by a comma.
+The first is English district type, provides us with other information, such as 
+whether the district officially has a [UK City status](City status in the United Kingdom).
+Because of this overall inconsistency, we will drop the variable. However, it
+is possible to recover this information from joining this table with other tables of English districts
+such as from what is available on the [List of English districts by area](https://en.wikipedia.org/wiki/List_of_English_districts_by_area) Wikipedia page. 
+
+```{r}
+Df %<>% select(-type) 
+```
+
+Looking again at the first 10 rows:
+```{r, echo=F}
+Df %>% head(10) %>% stylish_Df
+```
+
+As a final fix, we can that one district, namely *Stockton-on-Tees*, is listed as belonging
+to two regions of England:
+```{r, eval=F}
+Df %>% filter(district == "Stockton-on-Tees")
+```
+```{r, echo=F}
+Df %>% filter(district == "Stockton-on-Tees") %>% 
+  stylish_Df()
+```
+Given that this district is listed [here](https://en.wikipedia.org/wiki/Borough_of_Stockton-on-Tees) 
+as part of 
+[North East England](https://en.wikipedia.org/wiki/North_East_England), 
+we'll change its listed region to `North East`.
+```{r}
+Df %<>% mutate(english_region = recode(english_region, 
+                                       'North East andYorkshire and the Humber' = 'North East')
+)
+```
+
+
+## Summarizing and visualizing the data
+
+Having extracted and cleaned the data, we can now obtain some 
+summary statistics:
+```{r, eval=F}
+Df %>% summarize(number_of_districts = n(),
+                 median_population = median(population),
+                 population_iqr = IQR(population)
+)
+```
+```{r, echo=F}
+Df %>% summarize(number_of_districts = n(),
+                 median_population = median(population),
+                 population_iqr = IQR(population)
+) %>% stylish_Df()
+```
+
+And we can provide these summaries by English region too. 
+```{r, eval=F}
+Df %>% group_by(english_region) %>% 
+  summarize(number_of_districts = n(),
+            median_population = median(population),
+            population_iqr = IQR(population)
+  )
+```
+```{r, echo=F}
+Df %>% group_by(english_region) %>% 
+  summarize(number_of_districts = n(),
+            median_population = median(population),
+            population_iqr = IQR(population)
+  ) %>% stylish_Df()
+```
+
+
+We can visualize the distributions of the population in each district.
+```{r, fig.align="center"}
+ggplot(Df,
+       aes(x = population)
+) + geom_histogram(bins = 25, col='white') + 
+  theme_classic() +
+  scale_x_continuous(name="Population", 
+                     breaks = c(10^5, 5*10^5, 10^6),
+                     labels = c('100K', '500K', '1M')
+        )
+```
+
+And do the same by region.
+```{r, fig.align="center"}
+ggplot(Df,
+       aes(x = population)
+) + geom_histogram(bins = 25, col='white') + 
+  facet_wrap(~english_region)+  theme_classic() +
+ theme(strip.background = element_blank()) + scale_x_continuous(name="Population", 
+                   breaks = c(10^5, 5*10^5, 10^6),
+                   labels = c('100K', '500K', '1M')
+       )
+                   
+                   
+```
+
