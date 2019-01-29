@@ -36,18 +36,10 @@ stylish_Df <- function(Df){
 ```
 
 [Wikipedia](https://en.wikipedia.org/) 
-provides us with very large numbers of data tables. For example, here are
-just five of the presumably tens, or maybe hundreds, of thousands of Wikipedia pages with data tables:
-
-* [List of countries by GDP (nominal)](https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal))
-* [List of highest-grossing Indian films](https://en.wikipedia.org/wiki/List_of_highest-grossing_Indian_films)
-* [List of tallest buildings and structures](https://en.wikipedia.org/wiki/List_of_tallest_buildings_and_structures)
-* [List of countries by intentional homicide rate](https://en.wikipedia.org/wiki/List_of_countries_by_intentional_homicide_rate)
-* [List of countries and dependencies by area](https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_area)
-
-All of these tables, perhaps with some exceptions, provide a detailed reference to the original sources of the data and, by virtue of being on a Wikipedia page, are free to use according to 
+provides us with very large numbers of data tables. 
+All of these tables, though perhaps with some exceptions, provide a detailed reference to the original sources of the data and, by virtue of being on a Wikipedia page, are free to use according to 
 the [Creative Commons BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) licence.
-However, if we want to use data analysis using R on data in these tables, 
+However, if we want to do data analysis using R on data in these tables, 
 we must first do some web scraping
 to extract the data from the html tables 
 and then use `dplyr` and friends to clean them up
@@ -104,7 +96,7 @@ Df <- webpage_tables[[1]] %>%   # There's only one table
 Having read in the data into a data-frame, we now must 
 do a series of typical `dplyr` data wrangling steps. 
 
-First, let's take a look at the first 10 rows of the not-so-pretty `Df` that we've obtained:
+First, let's take a look at the first 10 rows of the `Df` that we've obtained:
 ```{r, echo=F}
 Df %>% head(10) %>% stylish_Df()
 ```
@@ -112,7 +104,7 @@ Df %>% head(10) %>% stylish_Df()
 There are a few things that need to be fixed:
 
 * First, though this is maybe just a personal preference, we'll convert column names to 
-  lower cases and containing no spaces.
+  lower case and with no spaces.
 * The original table's sub-headers like `More than 1,000,000 inhabitants`, `More than 500,000 inhabitants`, etc., have turned into rows with repeated values, and these need to be removed.
 * The population values need to be converted to integers.
 * Some variables can be dropped to make a cleaner data frame.
@@ -129,13 +121,6 @@ tolower_no_spaces <- function(s){
 Df %<>% rename_all(tolower_no_spaces)  
   
 ```
-
-
-Now, let's take a look again at the first 10 rows:
-```{r, echo=F}
-Df %>% head(10) %>% stylish_Df()
-```
-
 
 To deal with the inclusion of sub-headers rows,
 we need to filter out all rows that contain values like 
@@ -183,24 +168,16 @@ Let's look again at the first 10 rows:
 Df %>% head(10) %>% stylish_Df()
 ```
 
-The `type` variable is quite inconsistent. The 326 English districts are 
-in fact divided into 5 types as follows: *metropolitan boroughs* (36), *London boroughs* (32), *non-metropolitan districts* (201), *unitary authorities* (55), and two *sui generis* districts, namely the City of London and the Isles of Scilly. In our `Df`, the type variable 
-is missing is many cases. In other cases, the value listed, e.g. "City (2012)", 
-does not signify one the five type just mentioned. In some other cases, 
-it has two pieces of information that are separated by a comma.
-The first is English district type, provides us with other information, such as 
-whether the district officially has a [UK City status](https://en.wikipedia.org/wiki/City_status_in_the_United_Kingdom).
+The `type` variable is quite inconsistent. 
+The 326 English districts are 
+in fact simply divided into 5 types but in our `Df`, the type variable 
+is sometimes missing, or has values like "City (2012)" that do not correspond to one the five English district types, or has two pieces of information that are separated by a comma.
 Because of this overall inconsistency, we will drop the variable. However, it
 is possible to recover this information from joining this table with other tables of English districts
 such as from what is available on the [List of English districts by area](https://en.wikipedia.org/wiki/List_of_English_districts_by_area) Wikipedia page. 
 
 ```{r}
 Df %<>% select(-type) 
-```
-
-Looking again at the first 10 rows:
-```{r, echo=F}
-Df %>% head(10) %>% stylish_Df
 ```
 
 As a final fix, we can see that one district, namely *Stockton-on-Tees*, is listed as belonging
