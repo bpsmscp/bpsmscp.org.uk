@@ -1,0 +1,169 @@
+---
+title: "Permutations and combinations"
+slug: "permcomb"
+author: "Mark Andrews"
+date: 2019-01-30
+tags: ["permutations", "combinations", "maths", "stats", "R"]
+stub: false
+description: |
+  Permutations and combinations frequently arise in probability
+  calculations. Here, we provide a brief introduction and 
+  show how to calculate them in R.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE,
+                      echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+
+library(magrittr)
+
+```
+
+
+Permutations and combinations frequently arise in probability
+calculations. For example, to calculate the probability of winning the
+lottery, we would have to first calculate the number of possible
+outcomes of a single lottery draw.
+
+A *permutation* is a re-ordering of a set of items. If we had a set of
+three items such as tea, coffee and sugar, for example, we could order
+these three items in six ways, i.e. {tea, coffee, sugar}, {tea, sugar,
+coffee}, {coffee, tea, sugar}, {coffee, sugar, tea}, {sugar, tea,
+coffee} and {sugar, coffee, tea}. More generally, if we had $N$ items we
+could order them in $N!$ ways or $N
+\times (N-1) \times (N-2) \times \ldots 2 \times 1$. This is because if
+you had $N$ items, there are $N$ possibilities for the first item in the
+ordering, there are $N-1$ possibilities for the second, and so on.
+
+We can also talk about the permutations of $N$ items taken $n$ at a
+time. For example, let's say we have a class with 28 students. One desk
+in the classroom has six seats. How many ways are there for how we could
+seat different groups of students at this desk? Any one of the 28
+students could sit on the first chair. Then any one of 27 students could
+sit on the second chair, and so on until we have 23 possible students
+left who could sit on the sixth and final chair. In general, the number
+of permutations of $N$ items taken $n$ at a time is $$\begin{aligned}
+\mathrm{Perm}(N,n) &= N \times (N-1) \times \ldots \times (N-n+1),\\
+&= \frac{N \times (N-1) \times (N-2) \times \ldots 2 \times 1}{ (N-n) \times (N-n-1) \times (N-n-2) \times \ldots 2 \times 1},\\
+&= \frac{N!}{(N-n)!}.\end{aligned}$$
+
+In contrast to a permutation, a *combination* is a way of selecting a
+subset of items from a larger set, but where the ordering of the subset
+is irrelevant. For example, if we have a set of $N$ items, how many ways
+could we choose $n$ items from this set (assuming $n<N$). This number is
+related to $\mathrm{Perm}(N,n)$. In the example above, we have seen that
+there are $28
+\times 27 \times \ldots \times 23$ ways that we could seat 28 students
+at a desk with 6 seats. This takes into account the order in which each
+possible group of six students are seated. If do not care who sits
+where, but just whether a given student is seated at the desk or not,
+then we can divide the number of permutations by the number of ways of
+ordering each group of 6 students. This is
+$6 \times 5 \times 4 \times 3 \times 2 \times 1$ or $6!$. In other
+words, the number of ways we could select a subset of 6 students from a
+group of 28 is $$\mathrm{Comb}(28,6) = \frac{28 \times 27 \times
+\ldots \times 23}{6 \times 5 \times 4 \times 3 \times 2 \times 1},$$ and
+in general, $$\begin{aligned}
+\mathrm{Comb}(N,n) &= \frac{\mathrm{Perm}(N,n)}{n!},\\
+&= \frac{N!}{n!(N-n)!}.\end{aligned}$$ The term $\mathrm{Comb}(N,n)$ is
+very commonly written as $\tbinom{N}{n}$, and read as "N choose n".
+
+Here is a simple example of combinations. How many ways could be select
+2 items from the set of tea, coffee and sugar? Let's first list the
+possible permutations of the three items, taken two at a time: {tea,
+coffee}, {coffee, tea}, {tea, sugar}, {sugar, tea}, {sugar, coffee},
+{coffee, sugar}. There are six permutations, which is
+$\mathrm{Perm}(3,2)$. However, clearly the sets {tea,coffee} and
+{coffee,tea}, {tea, sugar} and {sugar, tea}, {sugar, coffee} and
+{coffee, sugar} contain the same items, just in different orders. If we
+ignore these orders, we see that there are only three possible subsets
+of tea, coffee and sugar when we take two at a time. To get this, we
+divided the number of permutations, i.e. $\mathrm{Perm}(3,2)=6$, by the
+number of ways you could re-order the subsets of two items, i.e.
+$2 \times
+1 = 2$.
+
+```{r, echo=F}
+# If you change these, the LaTeX below does not adapt
+N <- 59
+m <- 6
+```
+
+Finally, consider the number of ways of winning the jackpot in the UK's
+lotto. There are `r N` possible numbers, of which you choose `r m`. The draw
+consists of drawing `r m` numbers randomly from the set of `r N`. If you match
+the numbers drawn *in any order*, you will win or share in the jackpot.
+What is the probability of winning this jackpot? To calculate this,
+first we count the number of possible draws of `r m` numbers from the drum
+containing the `r N` numbers. The first number drawn can be any one of `r N`
+possible numbers, the second any one of `r N-1`, and so on until the sixth
+which is any one of `r N-(m-1)` possible numbers. In other words, the total
+numbers of draws is
+$$`r N` \times `r N-1` \times `r N-2` \times  `r N-3` \times  `r N-4` \times  `r N-5` = 
+`r exp(lfactorial(N) - lfactorial(N-6)) %>% format(big.mark=',') `.$$
+This number takes into account the number of
+different orders in which the six numbers could occur. In other words,
+it counts the numbers $\{1,2,3,4,5,6\}$ as distinct from
+$\{2,1,3,4,5,6\}$, and so on. The number of subsets of `r m` numbers taken
+from `r N`, where their ordering is irrelevant, is the number listed above
+divided by the number of ways we can re-order a group of six numbers,
+which is $`r m`!$, i.e.
+$$\frac{`r N` \times `r N-1` \times `r N-2` \times  `r N-3` \times  `r N-4` \times  `r N-5`}
+{6 \times 5 \times 4 \times 3 \times 2 \times 1} 
+= \frac{`r exp(lfactorial(N) - lfactorial(N-6)) %>% format(big.mark=',') `}
+{720} = `r lchoose(N, m) %>% exp() %>% format(big.mark=',')`.$$
+In other words, there are just 45 million different possible sets
+of lottery draws and so the chance that your choice of numbers will win
+is about 1 in 45 million.
+
+
+## Permutations and combinations using R
+
+Permutations and combinations ultimately just involve products and ratios of factorials. 
+In R, we can calculate the factorial of any number using `factorial`. For example,
+```{r}
+x <- c(5, 3, 11) # just arbitrarily chosen numbers
+factorial(x)     # their factorials
+```
+The problem is that factorials can get *huge* very quickly, and this can lead 
+to [overflow](https://en.wikipedia.org/wiki/Integer_overflow). We can 
+try to avoid this by using [logarithms](wiki/logarithms) of the factorials. For example,
+```{r}
+lfactorial(x)     # the logarithms of the factorials of x
+```
+In fact, R provides logarithsm of the $\mathrm{Comb}(N,n)$ function above as follows:
+```{r}
+lchoose(12, 3)    # the logarithm of 12 choose 3
+```
+We can then define our own permutations and combination functions:
+```{r}
+permutation = function(N, m, as_log=F) {
+  log_perm <- lfactorial(N) - lfactorial(N-m)
+  ifelse(as_log, log_perm, exp(log_perm))
+}
+
+combination = function(N, m, as_log=F) {
+  log_comb <- lchoose(N, m)
+  ifelse(as_log, log_comb, exp(log_comb))
+}
+```
+We'll test this out with some of the calculations above:
+```{r}
+permutation(59, 6)
+```
+and
+```{r}
+combination(59, 6)
+```
+If you, like me, need commas to help read any numbers with around 6 or more numbers you can do the following:
+```{r}
+permutation(59, 6) %>% format(big.mark=',')
+```
+and
+```{r}
+combination(59, 6) %>% format(big.mark=',')
+```
+
+
