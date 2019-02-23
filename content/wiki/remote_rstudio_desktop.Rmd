@@ -1,0 +1,211 @@
+---
+title: "Using a Remote RStudio Desktop Session"
+slug: "remote-rstudio"
+author: "Mark Andrews"
+date: 2019-02-23
+tags: ["rstudio", "server", "remote-computing", "R", "linux"]
+stub: false
+description: |
+  The RStudio Desktop works identically on Windows, Macs, and Linux. 
+  While most users work on either Windows or Macs, it is possible
+  to connect to a remote Linux machine from Windows or a Mac and 
+  run the RStudio desktop remotely as if you're working locally.
+---
+
+
+The [RStudio Desktop](https://www.rstudio.com/products/rstudio/#Desktop) 
+works identically on Windows, Macs, and Linux. 
+This means that, regardless of your usual platform, 
+if you are using RStudio Desktop, you can move between the Windows, Macs, 
+or Linux platforms and work in essentially an identical manner on each 
+case. While most users work on either Windows or Macs, high performance computers
+usually run Linux. For example, [almost 100% of all supercomputers](https://www.top500.org/statistics/list/),
+and around [90% of cloud computing servers](https://thecloudmarket.com/stats) run some 
+version of Linux. Assuming you have an account on a Linux server that has RStudio Desktop 
+installed, you can run a remote Linux desktop session on a Windows or Mac (or Linux) client machine.
+This allows you to remotely use R and RStudio on a high performance computer 
+from the comfort of your own laptop or everyday desktop. 
+A major additional benefit, as we explain below, 
+is that the remote desktop session is *detachable*. 
+This means that you start it on one client, and then detach it from that client at any time,
+and attach it to another client. This means that you could, for example,
+start a session using your office desktop as the client machine,
+and then detach the session from that client, go to Starbucks 
+and there attach the session to your laptop, and then detach it from there,
+go home and attach it your home desktop machine. The remote session can be live for days or weeks,
+and you can detach and reattach from any client machine that you have.
+
+
+## Some assumptions about the server
+
+The following how-to assumes that you have an account on a Linux server that has RStudio desktop installed.
+We'll assume that the server is running a [VNC](https://en.wikipedia.org/wiki/Virtual_Network_Computing) server,
+and a [ssh](https://en.wikipedia.org/wiki/Secure_Shell).
+In particular, in the examples below, we assume the VNC server is a [TigerVNC server](https://tigervnc.org/), 
+which is variant of the the [tightVNC](https://www.tightvnc.com/) server. It's certainly not necessary to run this 
+version of the server, but we'll just assume it for the examples below. 
+We'll also assume tha 
+We'll also assume that this server in on the internet, and not just a  [lan](https://en.wikipedia.org/wiki/Wide-area_network), 
+and that you know its global, or [wan](https://en.wikipedia.org/wiki/Wide-area_network), ip address or domain name. 
+
+
+## Software requirements for clients
+
+In practice, it is likely that the server is behind a corporate firewall, so we'll assume that your client machines
+all have [VPN](https://en.wikipedia.org/wiki/Virtual_private_network) client software that allow you to get through this firewall.
+Examples of VPN clients include the [pulsesecure client](https://www.pulsesecure.net/trynow/client-download/) or the [Cisco vpn client](https://en.wikipedia.org/wiki/Cisco_Systems_VPN_Client), and which one you'll need all depends on 
+which corporate firewall your organization is running. 
+
+Apart from the VPN client that you'll (probably) need, you'll definitely need the following:
+
+An ssh client
+
+:   If you're a Mac, you'll have `ssh` command line client 
+    available on your [macOS Unix terminal](https://support.apple.com/en-ca/guide/terminal/welcome/mac). 
+    If you are on Windows, and if you use [Git bash](https://gitforwindows.org/),
+    then with that you'll have a [bash shell](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
+    that will also have the `ssh` command line client. 
+    If you use Windows but don't use Git bash, or prefer not to use the `ssh` command line client, 
+    a popular alternative is to use the [PuTTY](https://support.apple.com/en-ca/guide/terminal/welcome/mac)
+    ssh client. 
+
+
+A VNC client
+
+:   The [VNC](https://en.wikipedia.org/wiki/Virtual_private_network) client, often called a vnc viewer, 
+    is what allows you to 
+    run a remote desktop session. One option, for both Windows and Macs is 
+    [realvnc client](https://www.realvnc.com/en/connect/download/viewer/macos/).
+    On your client machine, you just need the VNC client (viewer) not the server (that runs on the Linux server),
+    so no need to install the vnc server on your client machine.
+    
+    
+## Start a remote desktop session
+
+To start a remote desktop session, first ssh into the server. 
+If you're doing this using a `ssh` command line tool in a bash shell on Windows 
+or the Mac's terminal, and assuming your username of the Linux server is `janedoe` and
+that the server's domain name `www.remoteserver.org`, then you would type
+```
+ssh jandoe@www.remoteserver.org
+```
+If the server does not have an domain name, and you just have the IP address,
+just replace `www.remoteserver.org` with the IP address.
+You should immediately get a prompt for your password, 
+and when you type that in you will then be in a remote Linux shell session. 
+For example, it could be [bash shell](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
+or a [z shell (zsh)](https://en.wikipedia.org/wiki/Z_shell), and which it is 
+depends on the server's configuration. In any case, you should be able
+to run regular Linux/Unix commands like `pwd` (which will return your working) directory,
+or `ls` (which will list all the files and directories) in your 
+working directory. It's probably a good idea to type some of these
+commands just to ensure that everything is working as expected.
+
+If you're on Windows and using PuTTY, all you have to do is type the 
+domain name or IP address into the `Host Name (or IP address)` box
+in the PuTTY dialog box. Then you'll get a prompt for your username and then
+your password. Once you type those, you'll drop into the remote Linux shell
+as just described.
+
+Now you need to activate a VNC server session. First, verify
+that the `vncserver` command exists as follows:
+```
+which vncserver
+```
+This should return something like
+```
+/usr/bin/vncserver
+```
+That just tells you that the command exists. If you don't get back anything when
+you type `which vncserver`, then something's not quite right. 
+It could be that whichever VNC server is running on the Linux server 
+has a different command, which it may have because there 
+are many different implementations of the VNC server. On the other hand,
+something might not be working on the server. In what follows, 
+we'll just assume that running `which vncserver` confirmed
+that everything is running fine.
+
+Next, see if any vncserver sessions are running with
+```
+vncserver -list
+```
+If nothing is running yet, you'll see something like
+```
+TigerVNC server sessions:
+
+X DISPLAY #     PROCESS ID
+```
+To create a VNC session, just type 
+```
+vncserver
+```
+If this is the first time you've done this, you'll
+probably get a prompt about making a password for
+all your sessions like this
+```
+You will require a password to access your desktops.
+
+Password:
+```
+This password is just for your VNC sessions; it is not your password for the Linux server itself.
+It may also prompt you about creating a view-only password. You can ignore this for now.
+It will then probably copy some config files over into a `.vnc` directory in your home directory. 
+
+
+
+You may now check to see if a VNC sesssion started
+```
+vncserver -list
+```
+and you should see something like this
+```
+TigerVNC server sessions:
+
+X DISPLAY #     PROCESS ID
+:2              15345
+```
+From this, you see that your session is number `:2`. You need to note this. 
+
+# Connect to the Remote Desktop
+
+Now, open your VNC client (on your client machine). This should bring up a dialog box, and in there you type
+the domain name or IP address of the Linux server followed by `:2`, for example, `www.remoteserver.org:2`.
+
+Now, a remote desktop environment should appear on your screen. 
+Depending on which VNC client you use, you should have the option of ensuring that your client rescales 
+its geometry to optimally fit on your (client's) screen. If this does not occur, you 
+may to do some configuring of the geometry of the vnc server to optimally fit your screen (see below).
+Usually, you also have the option of making the remote desktop occupy the fullscreen. 
+With this, your all practical purposes, it's just as if you are directly connected to the Linux machine with a monitor 
+and keyboard. 
+
+# Start RStudio
+
+Unlike with Windows and Macs, Linux desktops come in many flavours and varieties 
+(see this list of [Linux desktop environments](https://en.wikipedia.org/wiki/Desktop_environment) 
+and this [list of window managers](https://en.wikipedia.org/wiki/Comparison_of_X_Window_System_desktop_environments)).  
+Depending on which one you use, launching RStudio can be accomplished in many different ways. 
+However, your Linux server adminstrator will be able to explain which options you have. For example,
+there could be menu options like with the Windows start button menus, or you could have a general app launcher and you just type RStudio desktop application's name (which could be `rstudio`, or `rstudio-desktop`, or `rstudio-bin`, depending),
+or you could use type the application's name on the Linux terminal. 
+One way or the other, it is going to be a simple thing to do. And once the Rstudio desktop is up, *everything* 
+works the same as it does on Windows and Macs. 
+
+# Additional details
+
+* *Detaching/reattaching sessions*: After you have issued the `vncserver` command above, you will have created a remote desktop session. This exists before, and then after, you connect to it. And so, you can create it and then connect to it as described above, and then disconnect (detach) your VNC client, and the remote session itself continues to run on the server. You can then re-attach to this session whenever you want, whereever you want. This is particularly handy for long running jobs. 
+For example, you can start some long running jobs on RStudio, then disconnect, and then re-connect hours or days later
+on the same or different client.
+
+* *VNC session passwords*: Your VNC session password is different to your Linux account's password. If you want to change it
+at any time, you can do this on a Linux shell with `vncpasswd`. 
+
+* *Copying files to and from the server*: Whichever method you use to `ssh` into the server will allow you to also copy to and from the server using the `scp` command line tool. 
+Using Git bash shell, or the Mac's terminal, you'll have a command `scp`. 
+If you use PuTTY, you'll get `pscp`, which you run from Windows DOS shell by typing `pscp`. In all cases, how to use this 
+is described on many webpages see [here](https://linuxize.com/post/how-to-use-scp-command-to-securely-transfer-files/), 
+[here](https://kb.iu.edu/d/agye), [here](http://www.hypexr.org/linux_scp_help.php). 
+There are also GUIs for the `scp` protocol such as [winSCP](https://winscp.net/eng/index.php).
+
+
+
