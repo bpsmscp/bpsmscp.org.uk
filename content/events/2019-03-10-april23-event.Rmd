@@ -1,0 +1,131 @@
+---
+title: "Introduction to R and RStudio"
+author: "Mark Andrews"
+date: 2019-04-23
+slug: intro-to-R-apr-23-2019
+location: London
+tags: ["workshop", "R", "stats"]
+description: |
+    A gentle introduction to R and RStudio for people who are new to
+    either or both. No prior experience with R or RStudio is required.
+---
+
+In this workshop, you will be provided with a friendly but comprehensive
+introduction to R. It is intended to provide people who are new to R all the
+basics and fundamentals that they need to get up and running with R so that
+they can use it on a regular basis.
+
+No prior experience with R is necessary. All we will assume is a familiarity
+with statistics typical of someone with a undergrad, or higher, degree in
+psychology or related discipline.
+
+You will need to bring your own laptop with R, RStudio, and some R packages
+installed. See below for details.
+
+# Admission and registration
+
+This workshop is *free* to all members of the following three sections of the BPS:
+
+* Mathematics, Statistics, and Computing section
+* Cognitive Psychology section
+* Developmental Psychology section
+
+Please register at this [Eventbrite page](https://tinyurl.com/bpsmscp-apr-2019).
+
+# Venue
+
+The workshop will be held in the [BPS London offices](https://goo.gl/maps/s8Qg5FWe1Cm):
+
+     The British Psychological Society
+     30 Tabernacle Street
+     London
+     EC2A 4UE
+
+# Schedule 
+
+* *9:00-9:30*: Registration; tea & coffee
+* *9:30-10:00*: What is R and why should you care
+* *10:00-10:30*: A guided tour of RStudio
+* *10:30-11:00*: Introducing R commands
+* *11:00-11:30*: Variables, vectors, functions
+* *11:30-12:30*: Writing R scripts
+* *12:30-13:30*: Lunch
+* *13:30-14:00*: Reading in and viewing data
+* *14:00-14:30*: Summarizing data
+* *14:30-15:30*: Plots and data visualization
+* *15:30-16:30*: Linear regression, general linear models
+* *16:30-17:30*: Anova (one-way, factorial, repeated measures)
+
+# Preparing your laptop
+
+The required software for these workshops are all free and open source
+and will run identically on Windows, Mac OS X, and Linux platforms.
+
+There are four main pieces of software to install:
+
+-   [R](https://www.r-project.org/): An environment for statistical
+    computing.
+-   [Rstudio](https://www.rstudio.com/): An integrated development
+    environment for using R.
+-   [tidyverse](https://www.tidyverse.org/): A bundle of R packages to
+    use R the modern way.
+-   Miscellaneous R packages: Other vital, or just handy, R packages.
+
+
+To install R, go to the [R](https://www.r-project.org/) website and follow the links
+for downloading. On Windows, this should lead you to
+
+-   <https://cran.r-project.org/bin/windows/base/>.
+
+Downloading this and following the usual Windows installation process,
+you\'ll then have a full working version of R.
+
+On Macs, the installation procedure is essentially identical. The latest
+Mac installer should be available at
+
+-   <https://cran.r-project.org/bin/macosx/>.
+
+Download this and follow the usual Mac installation process to get a
+full working version of R for Macs.
+
+To install RStudio, go to the [Rstudio](https://www.rstudio.com/) website,
+specifically to
+
+-   <https://www.rstudio.com/products/rstudio/download/>
+
+which will list all the available installers. Note that you just want
+the Rstudio *desktop* program. The Rstudio *server* is something else
+(basically it is for providing remote access to Rstudio hosted on Linux
+servers).
+
+Again, you\'ll just follow the usual installation process for Windows or
+Macs to install Rstudio using these installers.
+
+The so-called [tidyverse](https://www.tidyverse.org/) is a collection of
+interrelated R packages that implement essentially a new standard
+library for R. In other words, the
+[tidyverse](https://www.tidyverse.org/) gives us a bundle tools for
+doing commonplace data manipulation and visualization and programming.
+It represents the modern way to use R, and in my opinion, it\'s the best
+way to use R. All the [tidyverse](https://www.tidyverse.org/) packages
+can be installed by typing the following command in R:
+
+``` {.R}
+install.packages("tidyverse")
+```
+
+The main packages that are contained within the
+[tidyverse](https://www.tidyverse.org/) bundle are listed
+[here](https://www.tidyverse.org/packages/).
+
+There are a bunch of other R packages that we either will, or just may,
+use. Here are their installation commands:
+
+``` {.R}
+install.packages("rmarkdown")
+install.packages("knitr")
+install.packages("MASS")
+install.packages("car")
+install.packages("lme4")
+```
+

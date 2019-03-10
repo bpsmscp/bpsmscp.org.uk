@@ -5,6 +5,7 @@
 <!-- this monstrosity is to deal with Go/HoGo's limitations with scoping -->
 {{ $.Scratch.Set "has_post" "no" }}
 {{ $.Scratch.Set "has_wiki" "no" }}
+{{ $.Scratch.Set "has_events" "no" }}
 {{ range .Data.Pages}}
   
   {{ if eq .Type "post"}} 
@@ -14,10 +15,15 @@
   {{ if eq .Type "wiki"}} 
     {{ $.Scratch.Set "has_wiki" "yes" }}
   {{ end }}
+
+  {{ if eq .Type "events"}} 
+    {{ $.Scratch.Set "has_events" "yes" }}
+  {{ end }}
   
 {{ end }}
 
 {{ $has_wiki := $.Scratch.Get "has_wiki"}} 
+{{ $has_events := $.Scratch.Get "has_events"}} 
 {{ $has_post := $.Scratch.Get "has_post"}} 
 
       <div id="tagged-posts">
@@ -50,7 +56,22 @@
             {{ end }}
         </ul>
         {{ end }}
+
+        {{ if eq $has_events "yes"}}
+        <h2>Wiki pages</h2>
+        <ul>
+            {{ range .Data.Pages.ByPublishDate.Reverse }}
+                {{ if eq .Type "events"}}
+                <li>
+                    <span> {{ .Date.Format "01/02/2006" }} </span>
+                    <a href="{{ .URL }}">{{ .Title }}</a>
+                </li>
+                {{ end }}
+            {{ end }}
+        </ul>
+        {{ end }}
         
+       
         
     </div>
       

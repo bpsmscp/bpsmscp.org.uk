@@ -35,11 +35,11 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     url = "/wiki"
     weight = 3
   
-#  [[menu.main]]
-#    identifier = "events"
-#    name = "events"
-#    url = "/events"
-#    weight = 4
+  [[menu.main]]
+    identifier = "events"
+    name = "events"
+    url = "/events"
+    weight = 4
     
   [[menu.main]]
     identifier = "about"

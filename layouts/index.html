@@ -11,6 +11,19 @@
     </div>
 
     <div id="recent-posts">
+
+        <h2>Upcoming (or recent) events</h2>
+        <ul>
+            {{ range first 10 .Data.Pages.ByPublishDate.Reverse }}
+                {{ if eq .Type "events"}}
+                <li>
+                    <span> {{ .Date.Format "01/02/2006" }} </span>
+                    <a href="{{ .URL }}">{{ .Title }}</a>
+                </li>
+                {{ end }}
+            {{ end }}
+        </ul>
+       
         <h2>Recent blog posts</h2>
         <ul>
             {{ range first 10 .Data.Pages.ByPublishDate.Reverse }}
